@@ -1,0 +1,79 @@
+Nifty 50 Next-Day Prediction with LightGBM
+This project provides a pipeline to predict the next-day closing price of the Nifty 50 index (NSEI) using historical data and machine learning techniques. The script utilizes Python, with key libraries being yfinance, pandas, scikit-learn, LightGBM, and numpy.
+
+Features
+Downloads latest Nifty 50 data using Yahoo Finance (yfinance)
+
+Feature engineering: Lagged returns, rolling averages, rolling std, and calendar effects (day of week/month)
+
+Model: Machine learning with LightGBM regression
+
+Cross-validation: Walk-forward cross-validation with TimeSeriesSplit from scikit-learn
+
+Evaluation: Mean Absolute Error (MAE)
+
+Prediction: Trains on full history and outputs the next day's predicted close and a suggested ATM (At-the-Money) option strike
+
+Column cleaning for compatibility and robustness
+
+Requirements
+Python ≥3.6
+Install dependencies:
+
+bash
+pip install yfinance pandas scikit-learn lightgbm numpy
+How It Works
+Data Download
+Downloads historical Nifty 50 (NSEI) prices from Yahoo Finance starting from Jan 1, 2021 up to the present.
+
+Feature Engineering
+
+Lagged returns: 1, 3, and 5 days
+
+Rolling means and std: 5, 10, 20 days
+
+Calendar features: day of week, month
+
+Train/Test Split and Model Training
+
+Uses walk-forward validation (TimeSeriesSplit)
+
+Trains a LightGBM regressor
+
+Evaluates predictions via MAE
+
+Final Training & Prediction
+
+Re-trains on full dataset
+
+Predicts the close for the next day
+
+Suggests the nearest ATM strike by rounding the prediction to the nearest multiple of 50
+
+Output
+Today's close price
+
+Predicted next-day close
+
+Suggested ATM Strike
+
+Example:
+
+text
+----- Forecast -----
+Today’s close : 17,512.15
+Predicted close : 17,555.29
+Suggested ATM strike: 17,550
+Code Sections
+Column Name Cleaner: Ensures compatibility with LightGBM by cleaning column names.
+
+Feature Engineering: Generates technical and calendar features.
+
+Model Training: Applies walk-forward training and validation.
+
+Final Prediction: Outputs forecast and option strike.
+
+Notes
+The script leverages walk-forward validation, which is essential for time series problems to prevent lookahead bias.
+
+For the most accurate predictions, ensure data is up to date when running the script.
